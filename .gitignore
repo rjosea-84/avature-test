@@ -1,0 +1,10 @@
+# Ignore the terraform cache and binaries
+.terraform/
+.terraform.lock.hcl
+
+# Ignore state files (which might contain sensitive data or local paths)
+*.tfstate
+*.tfstate.backup
+
+# Ignore local environment or secret files
+.env

@@ -1,0 +1,21 @@
+-e LOCALSTACK_AUTH_TOKEN="ls-koDuRIho-5228-kebA-TEJI-6432pIqId0d2"
+
+aws ec2 describe-subnets --endpoint-url=http://localhost:4566 --query 'Subnets[*].[SubnetId,Tags[?Key==`Name`].Value|[0],VpcId,AvailabilityZone]' --output table
+
+# View EC2 instances
+AWS_ACCESS_KEY_ID=mock AWS_SECRET_ACCESS_KEY=mock AWS_DEFAULT_REGION=us-east-1 aws ec2 describe-instances   --endpoint-url=http://localhost:4566   --query 'Reservations[*].Instances[*].[InstanceId,InstanceType,State.Name,Tags[?Key==`Name`].Value|[0]]'   --output table
+
+# View ESB volumes
+AWS_ACCESS_KEY_ID=mock_access_key AWS_SECRET_ACCESS_KEY=mock_access_key AWS_DEFAULT_REGION=us-east-1 aws ec2 describe-volumes   --endpoint-url=http://localhost:4566   --query 'Volumes[*].[VolumeId,Size,AvailabilityZone,State,VolumeType]'   --output table
+
+# View tags
+AWS_ACCESS_KEY_ID=mock_access_key AWS_SECRET_ACCESS_KEY=mock_access_key AWS_DEFAULT_REGION=us-east-1 aws ec2 describe-instances --endpoint-url=http://localhost:4566 --query 'Reservations[*].Instances[*].[InstanceId, Tags[*].{Key:Key,Value:Value}]' --output json
+
+# View logs
+AWS_ACCESS_KEY_ID=mock_access_key AWS_SECRET_ACCESS_KEY=mock_access_key AWS_DEFAULT_REGION=us-east-1 aws logs describe-log-groups --query 'logGroups[*].logGroupName' --output table --endpoint-url=http://localhost:4566
+
+# Demo
+# 1. Hacer un terraform init
+# 2. Buscar las subnets y manualmente colocarla en el archivo dev.tfvars
+AWS_ACCESS_KEY_ID=mock_access_key AWS_SECRET_ACCESS_KEY=mock_access_key AWS_DEFAULT_REGION=us-east-1 aws ec2 describe-subnets   --endpoint-url=http://localhost:4566   --query 'Subnets[*].[SubnetId,Tags[?Key==`Name`].Value|[0],VpcId,AvailabilityZone]'   --output table
+# 3. Ejecutar de nuevo el apply porque la infra creada no queda grabada
