@@ -12,6 +12,6 @@ module "ec2_instance" {
     resource    = each.value.resource
     environment = each.value.environment
     owner       = each.value.owner
-    slug        = lower(join("-", [each.value.environment, var.team, each.key]))
+    slug        = lower(join("_", [each.value.environment, var.team, each.key]))
   }
 }
