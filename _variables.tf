@@ -43,7 +43,6 @@ variable "ebs_volumes" {
     device_name = string
     name        = string
   }))
-  default = {}
 }
 
 
