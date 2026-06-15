@@ -9,10 +9,11 @@ resource "aws_ebs_volume" "ebs_volume" {
   availability_zone = data.aws_instance.ebs[each.key].availability_zone
   size              = each.value.size
   type              = each.value.type
-
+  
   tags = {
     Name = each.value.name
   }
+  encrypted         = true
 }
 
 resource "aws_volume_attachment" "ebs_attach" {
